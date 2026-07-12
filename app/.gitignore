@@ -1,0 +1,6 @@
+.venv/
+.env/
+.env.example/
+.env
+.env.example
+other.py

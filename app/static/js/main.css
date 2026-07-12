@@ -1,0 +1,252 @@
+/**
+ * LandPr - Основной JavaScript
+ * Анимации, формы, уведомления
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 LandPr загружен!');
+
+    // ===== Плавная прокрутка для якорных ссылок =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // ===== Обработка формы с градиентом =====
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('lead-form');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (form && submitBtn) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Сохраняем оригинальный текст
+            const originalText = submitBtn.textContent;
+
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Отправка...';
+
+            try {
+                const data = new FormData(form);
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    body: data
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.ok) {
+                    // Успех
+                    form.reset();
+                    showNotification('✅ Заявка успешно отправлена!', 'success');
+
+                    // Визуальный фидбек на полях
+                    document.querySelectorAll('.form-group input').forEach(input => {
+                        input.style.borderColor = '#10B981';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 3000);
+                    });
+                } else {
+                    // Ошибка
+                    showNotification('❌ ' + (result.detail || 'Ошибка отправки'), 'error');
+
+                    document.querySelectorAll('.form-group input').forEach(input => {
+                        input.style.borderColor = '#EF4444';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 3000);
+                    });
+                }
+            } catch (error) {
+                showNotification('❌ Ошибка соединения с сервером', 'error');
+                console.error('Form error:', error);
+            } finally {
+                // Разблокируем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    }
+});
+
+    // ===== Функция уведомлений =====
+    function showNotification(message, type = 'success') {
+        const colors = {
+            success: '#10B981',
+            error: '#EF4444',
+            info: '#6C63FF'
+        };
+
+        // Удаляем старые уведомления
+        const oldNotifications = document.querySelectorAll('.custom-notification');
+        oldNotifications.forEach(el => el.remove());
+
+        const notification = document.createElement('div');
+        notification.className = 'custom-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 24px;
+            background: ${colors[type] || '#6C63FF'};
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            font-weight: 500;
+            z-index: 9999;
+            animation: slideInRight 0.4s ease;
+            max-width: 400px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.2);
+        `;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // Автоматическое скрытие
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(100%)';
+            notification.style.transition = 'all 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 4000);
+    }
+
+    // ===== Добавляем анимацию через CSS =====
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Пульсирующая анимация для кнопки */
+        .enter:not(:disabled):hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .enter:active {
+            transform: scale(0.95);
+        }
+
+        /* Плавное появление элементов при скролле */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Счетчик просмотров анимация */
+        .stat-number {
+            transition: all 0.5s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // ===== Intersection Observer для анимаций =====
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Наблюдаем за карточками преимуществ
+    document.querySelectorAll('.advantage-card').forEach(card => {
+        card.classList.add('fade-in');
+        observer.observe(card);
+    });
+
+    // Наблюдаем за карточкой формы
+    const card = document.querySelector('.card');
+    if (card) {
+        card.classList.add('fade-in');
+        observer.observe(card);
+    }
+
+    // ===== Маска для телефона (опционально) =====
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            let formatted = '';
+            if (value.length > 0) {
+                formatted = '+7';
+                if (value.length > 1) {
+                    formatted += ' (' + value.slice(1, 4);
+                }
+                if (value.length >= 4) {
+                    formatted += ') ' + value.slice(4, 7);
+                }
+                if (value.length >= 7) {
+                    formatted += '-' + value.slice(7, 9);
+                }
+                if (value.length >= 9) {
+                    formatted += '-' + value.slice(9, 11);
+                }
+            }
+            this.value = formatted;
+        });
+    }
+
+    // ===== Анимация счетчиков =====
+    function animateCounters() {
+        document.querySelectorAll('.stat-number').forEach(counter => {
+            const target = parseInt(counter.textContent);
+            if (target === 0) return;
+
+            let current = 0;
+            const increment = Math.ceil(target / 50);
+            const duration = 1000;
+            const stepTime = duration / 50;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = current;
+            }, stepTime);
+        });
+    }
+
+    // Запускаем анимацию счетчиков при загрузке
+    setTimeout(animateCounters, 500);
+
+    console.log('✅ LandPr готов к работе!');
+});

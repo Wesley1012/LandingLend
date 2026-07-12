@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{{ seo_data.title }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ seo_data.description }}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{{ seo_data.keywords }}{% endblock %}">
+    <meta name="robots" content="{{ seo_data.robots }}">
+
+    <meta property="og:title" content="{{ seo_data.og_title }}">
+    <meta property="og:description" content="{{ seo_data.og_description }}">
+    <meta property="og:image" content="{{ seo_data.og_image }}">
+    <meta property="og:url" content="{{ seo_data.og_url }}">
+    <meta property="og:type" content="{{ seo_data.og_type }}">
+    <meta property="og:site_name" content="{{ seo_data.site_name }}">
+
+    <link rel="canonical" href="{{ seo_data.canonical }}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/stars.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Звездное небо -->
+    <div class="stars-container">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </div>
+
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                🚀 <span>Land</span>Lend
+            </a>
+            <nav class="nav">
+                <a href="#services">Услуги</a>
+                <a href="#advantages">Преимущества</a>
+                <a href="#form">Заказать</a>
+                <a href="/test">API</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Основной контент -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <!-- Футер -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Колонка 1: Логотип и описание -->
+            <div class="footer-col">
+                <a href="/" class="footer-logo">
+                    🚀 <span>Land</span>Pr
+                </a>
+                <p class="footer-desc">
+                    Разработка крутых лендингов на FastAPI.<br>
+                    Индивидуальный подход, качество и надёжность.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="social-link" title="Telegram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.562 8.162L15.546 16.126C15.406 16.692 15.049 16.866 14.567 16.592L12.1 14.777L10.91 15.922C10.756 16.076 10.63 16.202 10.332 16.202L10.535 13.68L15.305 9.295C15.546 9.071 15.249 8.945 14.936 9.169L8.954 12.858L6.536 12.064C5.984 11.894 5.97 11.512 6.65 11.238L16.682 7.1C17.178 6.916 17.702 7.258 17.562 8.162Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="VK">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.562 8.162L15.546 16.126C15.406 16.692 15.049 16.866 14.567 16.592L12.1 14.777L10.91 15.922C10.756 16.076 10.63 16.202 10.332 16.202L10.535 13.68L15.305 9.295C15.546 9.071 15.249 8.945 14.936 9.169L8.954 12.858L6.536 12.064C5.984 11.894 5.97 11.512 6.65 11.238L16.682 7.1C17.178 6.916 17.702 7.258 17.562 8.162Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.562 8.162L15.546 16.126C15.406 16.692 15.049 16.866 14.567 16.592L12.1 14.777L10.91 15.922C10.756 16.076 10.63 16.202 10.332 16.202L10.535 13.68L15.305 9.295C15.546 9.071 15.249 8.945 14.936 9.169L8.954 12.858L6.536 12.064C5.984 11.894 5.97 11.512 6.65 11.238L16.682 7.1C17.178 6.916 17.702 7.258 17.562 8.162Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.562 8.162L15.546 16.126C15.406 16.692 15.049 16.866 14.567 16.592L12.1 14.777L10.91 15.922C10.756 16.076 10.63 16.202 10.332 16.202L10.535 13.68L15.305 9.295C15.546 9.071 15.249 8.945 14.936 9.169L8.954 12.858L6.536 12.064C5.984 11.894 5.97 11.512 6.65 11.238L16.682 7.1C17.178 6.916 17.702 7.258 17.562 8.162Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Колонка 2: Навигация -->
+            <div class="footer-col">
+                <h4 class="footer-title">Навигация</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#advantages">Преимущества</a></li>
+                    <li><a href="#form">Заказать</a></li>
+                    <li><a href="/test">API</a></li>
+                </ul>
+            </div>
+
+            <!-- Колонка 3: Контакты -->
+            <div class="footer-col">
+                <h4 class="footer-title">Контакты</h4>
+                <ul class="footer-contacts">
+                    <li>
+                        <span class="contact-icon">📱</span>
+                        <a href="tel:+79991234567">+7 (999) 123-45-67</a>
+                    </li>
+                    <li>
+                        <span class="contact-icon">✉️</span>
+                        <a href="mailto:info@landpr.ru">info@landpr.ru</a>
+                    </li>
+                    <li>
+                        <span class="contact-icon">💬</span>
+                        <a href="#" target="_blank">Telegram</a>
+                    </li>
+                    <li>
+                        <span class="contact-icon">📌</span>
+                        <span>Санкт-Петербург</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Колонка 4: Режим работы -->
+            <div class="footer-col">
+                <h4 class="footer-title">Режим работы</h4>
+                <ul class="footer-schedule">
+                    <li>
+                        <span class="schedule-day">Пн-Пт:</span>
+                        <span class="schedule-time">10:00 — 20:00</span>
+                    </li>
+                    <li>
+                        <span class="schedule-day">Сб:</span>
+                        <span class="schedule-time">12:00 — 18:00</span>
+                    </li>
+                    <li>
+                        <span class="schedule-day">Вс:</span>
+                        <span class="schedule-time">Выходной</span>
+                    </li>
+                </ul>
+                <div class="footer-badge">
+                    <span>🕐</span>
+                    <span>Ответим в течение 15 минут</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Копирайт -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 {{ seo_data.site_name }}. Все права защищены.</p>
+            <p class="footer-made">
+                Сделано с ❤️ на FastAPI
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
+    <script src="/static/js/main.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+
+{% block title %}{{ seo_data.title }}{% endblock %}
+{% block description %}{{ seo_data.description }}{% endblock %}
+
+{% block content %}
+<!-- Hero секция -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Создаём<br>крутые лендинги</h1>
+            <p>
+                Быстро, безопасно и с любовью к деталям.
+                Получите готовый сайт-визитку с мониторингом и Telegram-уведомлениями.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <a href="#services" class="btn btn-primary">Наши услуги</a>
+                <a href="#form" class="btn btn-primary">Заказать звонок</a>
+                <a href="#advantages" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="placeholder">
+                🚀
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section class="advantages" id="advantages">
+    <div class="container">
+        <h2>Почему выбирают нас</h2>
+        <p class="subtitle">Создаём сайты, которые приносят клиентов</p>
+
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <span class="advantage-icon">⚡</span>
+                <h3>Мгновенная загрузка</h3>
+                <p>Кеширование в Redis обеспечивает скорость отклика менее 50 мс</p>
+            </div>
+            <div class="advantage-card">
+                <span class="advantage-icon">🔒</span>
+                <h3>Безопасность</h3>
+                <p>CSRF-защита, безопасные cookie и современные заголовки безопасности</p>
+            </div>
+            <div class="advantage-card">
+                <span class="advantage-icon">📈</span>
+                <h3>SEO-оптимизация</h3>
+                <p>Правильные мета-теги, микроразметка и быстрый рендеринг</p>
+            </div>
+            <div class="advantage-card">
+                <span class="advantage-icon">🤝</span>
+                <h3>Индивидуальный подход</h3>
+                <p>Учитываем все пожелания клиента, разрабатываем уникальные решения под ваш бизнес</p>
+            </div>
+            <div class="advantage-card">
+                <span class="advantage-icon">🛡️</span>
+                <h3>Поддержка 1 месяц</h3>
+                <p>Бесплатная техническая поддержка и доработки в течение месяца после запуска</p>
+            </div>
+            <div class="advantage-card">
+                <span class="advantage-icon">💎</span>
+                <h3>Качество и надёжность</h3>
+                <p>Используем современные технологии, пишем чистый и поддерживаемый код</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Статистика -->
+<div class="stats">
+    <div class="stat-item">
+        <div class="stat-number">{{ views_count }}</div>
+        <div class="stat-label">👁️ Просмотров</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">{{ leads_count }}</div>
+        <div class="stat-label">📝 Заявок</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">🕐 Поддержка</div>
+    </div>
+</div>
+
+<!-- ===== Услуги и цены ===== -->
+<section class="services" id="services">
+    <div class="container">
+        <h2 class="services-title">Наши услуги</h2>
+        <p class="services-subtitle">Разрабатываем под ключ — от идеи до запуска</p>
+
+        <div class="services-grid">
+            <!-- Услуга 1 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">🤖</div>
+                    <div class="service-name">Telegram-бот</div>
+                    <div class="service-desc">Создание и привязка бота для уведомлений и автоматизации</div>
+                    <div class="service-price">от 5 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Услуга 2 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">🔍</div>
+                    <div class="service-name">SEO-оптимизация</div>
+                    <div class="service-desc">Настройка мета-тегов, микроразметка, sitemap, аналитика</div>
+                    <div class="service-price">от 6 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Услуга 3 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">🛠️</div>
+                    <div class="service-name">Админ-панель</div>
+                    <div class="service-desc">Управление заявками, контентом, статистика и графики</div>
+                    <div class="service-price">от 9 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Услуга 4 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">🎨</div>
+                    <div class="service-name">Дизайн на заказ</div>
+                    <div class="service-desc">Уникальный дизайн под ваш бренд с учётом современных трендов</div>
+                    <div class="service-price">от 10 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Услуга 5 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">📊</div>
+                    <div class="service-name">Парсеры данных</div>
+                    <div class="service-desc">Сбор контактов, мониторинг цен, выгрузка в Excel/CRM</div>
+                    <div class="service-price">от 15 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+
+            <!-- Услуга 6 -->
+            <div class="service-card-wrapper">
+                <div class="canvas">
+                    <div class="tr-1"></div><div class="tr-2"></div><div class="tr-3"></div><div class="tr-4"></div><div class="tr-5"></div>
+                    <div class="tr-6"></div><div class="tr-7"></div><div class="tr-8"></div><div class="tr-9"></div><div class="tr-10"></div>
+                    <div class="tr-11"></div><div class="tr-12"></div><div class="tr-13"></div><div class="tr-14"></div><div class="tr-15"></div>
+                    <div class="tr-16"></div><div class="tr-17"></div><div class="tr-18"></div><div class="tr-19"></div><div class="tr-20"></div>
+                    <div class="tr-21"></div><div class="tr-22"></div><div class="tr-23"></div><div class="tr-24"></div><div class="tr-25"></div>
+                </div>
+                <div class="service-card">
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+
+                    <div class="service-icon">🚀</div>
+                    <div class="service-name">Полный комплекс</div>
+                    <div class="service-desc">Всё включено: бот, SEO, админка, дизайн, парсеры + скидка 20%</div>
+                    <div class="service-price">от 35 000 ₽</div>
+                    <a href="#form" class="service-btn">Заказать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Форма -->
+<section class="form-section" id="form">
+    <div class="form-container">
+        <h2 class="form-title">Готовы начать?</h2>
+        <p class="form-subtitle">Оставьте заявку, и мы свяжемся с вами</p>
+
+        <form class="form" id="lead-form" method="post" action="/api/lead">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+            <div class="form-group">
+                <label for="name">Ваше имя</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Имя Фамилия"
+                    required
+                    minlength="2"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Номер телефона</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+7 (999) 123-45-67"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="form-submit-btn" id="submitBtn">
+                Отправить →
+            </button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('lead-form');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Сохраняем оригинальный текст
+            const originalText = submitBtn.textContent;
+
+            // Блокируем кнопку и меняем текст
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳';
+            submitBtn.style.opacity = '0.7';
+
+            try {
+                const data = new FormData(form);
+                const response = await fetch('/api/lead', {
+                    method: 'POST',
+                    body: data
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.ok) {
+                    // Успех
+                    form.reset();
+                    showNotification('✅ Заявка успешно отправлена!', 'success');
+
+                    // Визуальный фидбек на полях
+                    document.querySelectorAll('.inputBox input').forEach(input => {
+                        input.style.borderColor = '#10B981';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 3000);
+                    });
+                } else {
+                    // Ошибка
+                    showNotification('❌ ' + (result.detail || 'Ошибка отправки'), 'error');
+
+                    // Подсвечиваем поля красным
+                    document.querySelectorAll('.inputBox input').forEach(input => {
+                        input.style.borderColor = '#EF4444';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 3000);
+                    });
+                }
+            } catch (error) {
+                showNotification('❌ Ошибка соединения с сервером', 'error');
+                console.error('Form error:', error);
+            } finally {
+                // Разблокируем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                submitBtn.style.opacity = '1';
+            }
+        });
+    }
+});
+
+// Функция уведомлений (неоморфный стиль)
+function showNotification(message, type = 'success') {
+    const colors = {
+        success: '#10B981',
+        error: '#EF4444'
+    };
+
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 24px;
+        background: ${colors[type] || '#6C63FF'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 8px 8px 16px rgba(0,0,0,0.1),
+                    -8px -8px 16px rgba(255,255,255,0.5);
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        max-width: 400px;
+        letter-spacing: 0.5px;
+    `;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+</script>
+{% endblock %}
