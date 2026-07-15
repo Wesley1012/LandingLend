@@ -18,8 +18,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite+aiosqlite:///./app.db"
 
     # Telegram
-    TG_BOT_TOKEN: str = "123:ABC"
-    TG_CHAT_ID: str = "-100123456"
+    TG_BOT_TOKEN: str = os.getenv("TG_TOKEN", "")
+    TG_CHAT_ID: str = os.getenv("TG_ID")
+    TG_API_BASE_URL: str = "https://api.bot-gate.ru"
 
     # SEO
     SITE_NAME: str = "LandingLend"
@@ -27,7 +28,9 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
         case_sensitive = True
+        extra = "ignore"
 
 
 settings = Settings()

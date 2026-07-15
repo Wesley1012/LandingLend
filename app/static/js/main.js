@@ -4,7 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 LandPr загружен!');
+    console.log('Zdarova zaebal!');
 
     // ===== Плавная прокрутка для якорных ссылок =====
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

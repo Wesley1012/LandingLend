@@ -287,35 +287,22 @@
         <p class="form-subtitle">Оставьте заявку, и мы свяжемся с вами</p>
 
         <form class="form" id="lead-form" method="post" action="/api/lead">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
-            <div class="form-group">
-                <label for="name">Ваше имя</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Имя Фамилия"
-                    required
-                    minlength="2"
-                >
-            </div>
+    <div class="form-group">
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" name="name" placeholder="Иван Петров" required>
+    </div>
 
-            <div class="form-group">
-                <label for="phone">Номер телефона</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="+7 (999) 123-45-67"
-                    required
-                >
-            </div>
+    <div class="form-group">
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+    </div>
 
-            <button type="submit" class="form-submit-btn" id="submitBtn">
-                Отправить →
-            </button>
-        </form>
+    <button type="submit" class="form-submit-btn" id="submitBtn">
+        Отправить →
+    </button>
+</form>
     </div>
 </section>
 
@@ -336,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Блокируем кнопку и меняем текст
             submitBtn.disabled = true;
-            submitBtn.textContent = '⏳';
+            submitBtn.textContent = '⏳ Отправка...';
             submitBtn.style.opacity = '0.7';
 
             try {
@@ -353,8 +340,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     form.reset();
                     showNotification('✅ Заявка успешно отправлена!', 'success');
 
-                    // Визуальный фидбек на полях
-                    document.querySelectorAll('.inputBox input').forEach(input => {
+                    // Визуальный фидбек на полях (исправлено с .inputBox на .form-group)
+                    document.querySelectorAll('.form-group input').forEach(input => {
                         input.style.borderColor = '#10B981';
                         setTimeout(() => {
                             input.style.borderColor = '';
@@ -362,10 +349,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 } else {
                     // Ошибка
-                    showNotification('❌ ' + (result.detail || 'Ошибка отправки'), 'error');
+                    const errorMsg = result.detail || 'Ошибка отправки';
+                    showNotification('❌ ' + errorMsg, 'error');
 
-                    // Подсвечиваем поля красным
-                    document.querySelectorAll('.inputBox input').forEach(input => {
+                    // Подсвечиваем поля красным (исправлено с .inputBox на .form-group)
+                    document.querySelectorAll('.form-group input').forEach(input => {
                         input.style.borderColor = '#EF4444';
                         setTimeout(() => {
                             input.style.borderColor = '';
@@ -385,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Функция уведомлений (неоморфный стиль)
+// Функция уведомлений
 function showNotification(message, type = 'success') {
     const colors = {
         success: '#10B981',
@@ -401,13 +389,13 @@ function showNotification(message, type = 'success') {
         color: white;
         padding: 16px 24px;
         border-radius: 8px;
-        box-shadow: 8px 8px 16px rgba(0,0,0,0.1),
-                    -8px -8px 16px rgba(255,255,255,0.5);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         font-weight: 500;
         z-index: 9999;
-        animation: slideIn 0.3s ease;
+        animation: slideInRight 0.4s ease;
         max-width: 400px;
         letter-spacing: 0.5px;
+        border: 1px solid rgba(255,255,255,0.2);
     `;
     notification.textContent = message;
 
@@ -415,9 +403,26 @@ function showNotification(message, type = 'success') {
 
     setTimeout(() => {
         notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.3s';
+        notification.style.transform = 'translateX(100%)';
+        notification.style.transition = 'all 0.3s ease';
         setTimeout(() => notification.remove(), 300);
     }, 4000);
 }
+
+// Добавляем анимацию для уведомлений
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
 </script>
 {% endblock %}
