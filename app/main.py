@@ -3,21 +3,22 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import main, lead, seo
-from app.middleware import SecurityHeadersMiddleware
+from app.middleware import SecurityHeadersMiddleware, RateLimitMiddleware
 from app.core.config import settings
+from app.core.rate_limiter import lifespan
 import logging
 
-# Настройка логов
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     debug=settings.DEBUG,
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
-# CORS (настройте под свой домен)
+# CORS — должен быть первым
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"] if settings.DEBUG else [settings.BASE_URL],
@@ -25,6 +26,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Rate Limiter — после CORS, до остальных
+app.add_middleware(RateLimitMiddleware)
 
 # Безопасность и SEO заголовки
 app.add_middleware(SecurityHeadersMiddleware)
@@ -40,17 +44,17 @@ app.include_router(seo.router)
 # Health check
 @app.get("/health")
 async def health():
-    return {
-        "status": "ok",
-        "service": settings.PROJECT_NAME,
-        "debug": settings.DEBUG
-    }
+    try:
+        redis = app.state.redis
+        await redis.ping()
+        return {"status": "healthy", "redis": "connected"}
+    except Exception as e:
+        return {"status": "unhealthy", "redis": "disconnected", "error": str(e)}
 
-# Запуск
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
-        "main:app",
+        "app.main:app",
         host="0.0.0.0",
         port=8000,
         reload=settings.DEBUG

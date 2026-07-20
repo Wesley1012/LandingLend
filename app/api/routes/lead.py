@@ -18,7 +18,7 @@ async def create_lead(
 ):
     """Обработка заявки с формы"""
 
-    print(f"📝 Получены данные: name={name}, phone={phone}")
+    print(f"Получены данные: name={name}, phone={phone}")
 
     lead_id = await LeadService.save_lead(name, phone)
     await cache.incr_metric("leads")

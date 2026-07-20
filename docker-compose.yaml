@@ -1,0 +1,22 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    environment:
+      - REDIS_ARGS=--appendonly yes
+  
+  redis-insight:
+    image: redis/redisinsight:latest
+    ports:
+      - "8001:8001"
+    volumes:
+      - redis-insight-data:/data
+    depends_on:
+      - redis
+
+volumes:
+  redis-data:
+  redis-insight-data:
