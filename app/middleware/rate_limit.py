@@ -36,7 +36,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         "/favicon.ico",
         "/sitemap.xml",
         "/robots.txt",
-        "/test",
+        # "/test",
         "/cache-status",
         "/static",
     }
@@ -57,7 +57,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
         # Проверяем, есть ли лимитер в состоянии приложения
         if not hasattr(request.app.state, 'rate_limiter'):
-            logger.warning("⚠️ RateLimiter не инициализирован")
+            logger.warning("RateLimiter не инициализирован")
             return await call_next(request)
 
         rate_limiter = request.app.state.rate_limiter
