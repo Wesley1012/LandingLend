@@ -1,9 +1,20 @@
 from fastapi import Request, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
 from starlette.middleware.base import BaseHTTPMiddleware
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Создаём окружение Jinja2 без кеша
+env = Environment(
+    loader=FileSystemLoader("app/templates/errors/"),
+    autoescape=select_autoescape(["html", "xml"]),
+    cache_size=0,  # Отключаем кеш
+    auto_reload=True
+)
+templates = Jinja2Templates(env=env)
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
@@ -11,17 +22,15 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     # Настройки для разных эндпоинтов
     LIMITS = {
-        "/": (5, 10),  # 5 запросов в 10 секунд на главную
-        "/api/lead": (5, 30),  # 5 запросов в 30 секунд
+        "/": (5, 10),
+        "/api/lead": (5, 30),
         "/api/lead/": (5, 30),
-        "/sql_code": (10, 60),  # 10 запросов в минуту
-        "/api/test": (3, 5),  # 3 запроса в 5 секунд
+        "/sql_code": (10, 60),
+        "/api/test": (3, 5),
     }
 
-    # Лимит по умолчанию: 20 запросов в минуту
     DEFAULT_LIMIT = (20, 60)
 
-    # Эндпоинты, которые не лимитируем
     EXCLUDED_PATHS = {
         "/health",
         "/favicon.ico",
@@ -54,16 +63,13 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         rate_limiter = request.app.state.rate_limiter
 
         # Определяем лимиты для эндпоинта
-        # Проверяем точное совпадение, а затем частичное
         limit_config = self.LIMITS.get(path)
         if limit_config is None:
-            # Проверяем, не начинается ли путь с какого-то эндпоинта
             for endpoint, limits in self.LIMITS.items():
                 if path.startswith(endpoint):
                     limit_config = limits
                     break
 
-        # Если не нашли, используем дефолтный
         if limit_config is None:
             limit_config = self.DEFAULT_LIMIT
 
@@ -79,6 +85,23 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
         if is_limited:
             logger.warning(f"Rate limit exceeded: {client_ip} -> {path} ({max_requests}/{window_seconds}s)")
+
+            # Если запрос ожидает HTML (браузер) — показываем красивую страницу
+            accept_header = request.headers.get("accept", "")
+            if "text/html" in accept_header or path == "/":
+                # Рендерим вручную
+                template = templates.get_template("429.html")
+                html_content = template.render({
+                    "request": request,
+                    "limit": max_requests,
+                    "window": window_seconds,
+                })
+                return HTMLResponse(
+                    content=html_content,
+                    status_code=status.HTTP_429_TOO_MANY_REQUESTS
+                )
+
+            # Для API возвращаем JSON
             return JSONResponse(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 content={
